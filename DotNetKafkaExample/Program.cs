@@ -13,19 +13,14 @@ namespace DotNetKafkaExample
     {
         static void Main(string[] args)
         {
-            if (args.Length == 0)
-            {
-                Console.WriteLine("require bootstrap servers");
-                return;
-            }
+            Console.WriteLine("please input bootstrap servers.");
 
-            Console.WriteLine("start. Ctl+C to exit.");
-
-            // Kafkaサーバーアドレス
-            string bootstrapServers = args[0];
+            var bootstrapServers = Console.ReadLine();
 
             // Taskキャンセルトークン
             var tokenSource = new CancellationTokenSource();
+
+            Console.WriteLine($"start .Net Kafka Example. Ctl+C to exit");
 
             // プロデューサータスク
             var pTask = Task.Run(() => new Action<string, CancellationToken>(async (bs, cancel) =>
@@ -113,12 +108,12 @@ namespace DotNetKafkaExample
             Console.CancelKeyPress += (_, e) =>
             {
                 e.Cancel = true;
-                tokenSource.Cancel();
+                tokenSource.Cancel(); // Taskキャンセル
             };
 
             Task.WaitAll(pTask, cTask);
 
-            Console.WriteLine("stop. press any key to close.");
+            Console.WriteLine("stop .Net Kafka Example. press any key to close.");
 
             Console.ReadKey();
         }
