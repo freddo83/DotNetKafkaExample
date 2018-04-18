@@ -64,11 +64,9 @@ namespace DotNetKafkaExample
                     { "bootstrap.servers", bs },
                     { "group.id", "test" },
                     { "enable.auto.commit", false },
-                    { "auto.commit.interval.ms", 5000 },
-                    { "statistics.interval.ms", 60000 },
                     { "default.topic.config", new Dictionary<string, object>()
                         {
-                            { "auto.offset.reset", "smallest" }
+                            { "auto.offset.reset", "earliest" }
                         }
                     }
                 };
