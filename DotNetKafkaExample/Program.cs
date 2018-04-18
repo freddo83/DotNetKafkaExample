@@ -31,6 +31,8 @@ namespace DotNetKafkaExample
 
                 using (var producer = new Producer<string, string>(cf, new StringSerializer(Encoding.UTF8), new StringSerializer(Encoding.UTF8)))
                 {
+                    producer.OnError += (_, error) => Console.WriteLine($"fail send. reason: {error.Reason}");
+
                     while (true)
                     {
                         if (cancel.IsCancellationRequested)
